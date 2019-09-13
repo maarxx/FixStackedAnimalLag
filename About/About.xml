@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ModMetaData>
+  <name>FixStackedAnimalLag</name>
+  <author>Maarx</author>
+  <url>https://github.com/maarxx/FixStackedAnimalLag/</url>
+  <supportedVersions>
+    <li>1.0</li>
+  </supportedVersions>
+  <description>Fixes the lag when lots of animals are stacked together on few tiles.</description>
+</ModMetaData>
