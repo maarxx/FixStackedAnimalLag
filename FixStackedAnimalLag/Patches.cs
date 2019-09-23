@@ -1,12 +1,15 @@
 ﻿using Harmony;
 using RimWorld;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
 using Verse;
+using Verse.AI;
+using Verse.AI.Group;
 
 namespace FixStackedAnimalLag
 {
@@ -15,13 +18,12 @@ namespace FixStackedAnimalLag
     {
         static Main()
         {
-            Log.Message("Hello from Harmony in scope: com.github.harmony.rimworld.maarx.fixstackedanimallag");
+            //Log.Message("Hello from Harmony in scope: com.github.harmony.rimworld.maarx.fixstackedanimallag");
             var harmony = HarmonyInstance.Create("com.github.harmony.rimworld.maarx.fixstackedanimallag");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
     }
 
-    //public static Vector3 PawnCollisionPosOffsetFor(Pawn pawn)
     [HarmonyPatch(typeof(PawnCollisionTweenerUtility))]
     [HarmonyPatch("PawnCollisionPosOffsetFor")]
     class PawnCollisionTweenerUtility_PawnCollisionPosOffsetFor
@@ -34,7 +36,82 @@ namespace FixStackedAnimalLag
                 return false;
             }
             return true;
-            //Log.Message("Hello from Harmony PawnCollisionTweenerUtility_PawnCollisionPosOffsetFor Prefix");
         }
     }
+
+    [HarmonyPatch(typeof(PawnUtility))]
+    [HarmonyPatch("ShouldCollideWithPawns")]
+    class PawnUtility_ShouldCollideWithPawns
+    {
+        static bool Prefix(ref Pawn p, ref bool __result)
+        {
+            //Log.Message("Hello from Harmony PawnUtility_ShouldCollideWithPawns Prefix");
+            if (p.RaceProps.Animal && p.Faction == Faction.OfPlayer)
+            {
+                __result = false;
+                return false;
+            }
+            return true;
+        }
+    }
+
+    //[HarmonyPatch(typeof(GenHostility))]
+    //[HarmonyPatch("IsActiveThreatTo")]
+    //class GenHostility_IsActiveThreatTo
+    //{
+    //    static bool Prefix(ref bool __result)
+    //    {
+    //        Log.Message("Hello from Harmony GenHostility_IsActiveThreatTo Prefix");
+    //        //return true;
+    //        __result = false;
+    //        return false;
+    //    }
+    //}
+
+    //[HarmonyPatch(typeof(JobGiver_AIFightEnemies))]
+    //[HarmonyPatch("TryFindShootingPosition")]
+    //class JobGiver_AIFightEnemies_TryFindShootingPosition
+    //{
+    //    static bool Prefix(ref bool __result)
+    //    {
+    //        Log.Message("Hello from Harmony JobGiver_AIFightEnemies_TryFindShootingPosition Prefix");
+    //        __result = false;
+    //        return true;
+    //    }
+    //}
+
+    //[HarmonyPatch(typeof(JobGiver_AIGotoNearestHostile))]
+    //[HarmonyPatch("TryGiveJob")]
+    //class JobGiver_AIGotoNearestHostile_TryGiveJob
+    //{
+    //    static bool Prefix(ref Job __result)
+    //    {
+    //        Log.Message("Hello from Harmony JobGiver_AIGotoNearestHostile_TryGiveJob Prefix");
+    //        __result = null;
+    //        return false;
+    //    }
+    //}
+
+    //[HarmonyPatch(typeof(Lord))]
+    //[HarmonyPatch("LordTick")]
+    //class Lord_LordTick
+    //{
+    //    static bool Prefix()
+    //    {
+    //        Log.Message("Hello from Harmony Lord_LordTick Prefix");
+    //        return false;
+    //    }
+    //}
+
+    //[HarmonyPatch(typeof(JobGiver_AIFightEnemy))]
+    //[HarmonyPatch("TryGiveJob")]
+    //class JobGiver_AIFightEnemy_TryGiveJob
+    //{
+    //    static bool Prefix(ref Job __result)
+    //    {
+    //        Log.Message("Hello from Harmony JobGiver_AIFightEnemy_TryGiveJob Prefix");
+    //        __result = null;
+    //        return false;
+    //    }
+    //}
 }
