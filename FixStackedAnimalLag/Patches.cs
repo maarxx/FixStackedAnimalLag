@@ -1,4 +1,4 @@
-﻿using Harmony;
+﻿using HarmonyLib;
 using RimWorld;
 using System;
 using System.Collections;
@@ -19,7 +19,7 @@ namespace FixStackedAnimalLag
         static Main()
         {
             //Log.Message("Hello from Harmony in scope: com.github.harmony.rimworld.maarx.fixstackedanimallag");
-            var harmony = HarmonyInstance.Create("com.github.harmony.rimworld.maarx.fixstackedanimallag");
+            var harmony = new Harmony("com.github.harmony.rimworld.maarx.fixstackedanimallag");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
     }
