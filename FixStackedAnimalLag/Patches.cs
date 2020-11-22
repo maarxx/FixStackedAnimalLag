@@ -40,6 +40,31 @@ namespace FixStackedAnimalLag
     }
 
     [HarmonyPatch(typeof(PawnUtility))]
+    [HarmonyPatch("PawnBlockingPathAt")]
+    class PawnUtility_PawnBlockingPathAt
+    {
+        static bool Prefix(ref IntVec3 c, ref Pawn forPawn, ref bool actAsIfHadCollideWithPawnsJob, ref bool collideOnlyWithStandingPawns, ref bool forPathFinder, ref Pawn __result)
+        {
+            if (forPawn.HostileTo(Faction.OfPlayer))
+            {
+                //actAsIfHadCollideWithPawnsJob = true;
+                //collideOnlyWithStandingPawns = false;
+                List<Thing> thingList = c.GetThingList(forPawn.Map);
+                for (int i = 0; i < thingList.Count; i++)
+                {
+                    Pawn pawn = thingList[i] as Pawn;
+                    if (pawn != null && pawn != forPawn)
+                    {
+                        __result = pawn;
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+    }
+
+    [HarmonyPatch(typeof(PawnUtility))]
     [HarmonyPatch("ShouldCollideWithPawns")]
     class PawnUtility_ShouldCollideWithPawns
     {
@@ -49,6 +74,11 @@ namespace FixStackedAnimalLag
             if (p.RaceProps.Animal && p.Faction == Faction.OfPlayer)
             {
                 __result = false;
+                return false;
+            }
+            if (p.HostileTo(Faction.OfPlayer))
+            {
+                __result = true;
                 return false;
             }
             return true;
