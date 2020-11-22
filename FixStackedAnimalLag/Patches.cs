@@ -53,7 +53,7 @@ namespace FixStackedAnimalLag
                 for (int i = 0; i < thingList.Count; i++)
                 {
                     Pawn pawn = thingList[i] as Pawn;
-                    if (pawn != null && pawn != forPawn)
+                    if (pawn != null && pawn != forPawn && !pawn.Downed)
                     {
                         __result = pawn;
                         return false;
