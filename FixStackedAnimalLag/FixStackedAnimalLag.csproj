@@ -56,6 +56,10 @@
       <HintPath>..\..\..\RimWorldWin64_Data\Managed\ISharpZipLib.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="ModButtons">
+      <HintPath>..\..\ModButtons\Assemblies\ModButtons.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Mono.Posix">
       <HintPath>..\..\..\RimWorldWin64_Data\Managed\Mono.Posix.dll</HintPath>
       <Private>False</Private>
@@ -328,6 +332,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FixStackedAnimalLag_GlobalRuntimeSettings.cs" />
+    <Compile Include="FixStackedAnimalLag_RegisterToMainTab.cs" />
     <Compile Include="Patches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
