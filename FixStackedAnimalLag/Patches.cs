@@ -23,6 +23,7 @@ namespace FixStackedAnimalLag
         }
     }
 
+    /*
     [HarmonyPatch(typeof(WanderUtility))]
     [HarmonyPatch("GetColonyWanderRoot")]
     class WanderUtility_GetColonyWanderRoot
@@ -104,6 +105,7 @@ namespace FixStackedAnimalLag
             return true;
         }
     }
+    */
 
 
     [HarmonyPatch(typeof(PawnCollisionTweenerUtility))]
