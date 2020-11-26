@@ -157,7 +157,7 @@ namespace FixStackedAnimalLag
                 __result = false;
                 return false;
             }
-            if (FixStackedAnimalLag_GlobalRuntimeSettings.shouldCollideEnemies && p.HostileTo(Faction.OfPlayer))
+            if (FixStackedAnimalLag_GlobalRuntimeSettings.shouldCollideEnemies && p.HostileTo(Faction.OfPlayer) && !p.Downed)
             {
                 __result = true;
                 return false;
