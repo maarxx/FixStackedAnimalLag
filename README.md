@@ -4,6 +4,10 @@ This is a mod for the game RimWorld by Ludeon Studios.
 
 It fixes the lag when lots of animals are stacked together on few tiles during combat.
 
+# Dependency
+
+This requires another mod of mine: [ModButtons](https://github.com/maarxx/ModButtons)
+
 # Table of Contents
 
 * [Introduction and Explanation](#introduction-and-explanation)
